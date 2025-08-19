@@ -6,24 +6,31 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<h1 th:text="'Workouts for user: ' + ${user.username}"></h1>
+<h1 th:utext="'Workouts for user<br>' + ${user.username}"></h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Duration (min)</th>
-        <th>Workout Type</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="workout : ${user.workouts}">
-        <td th:text="${#temporals.format(workout.date, 'yyyy-MM-dd HH:mm')}"></td>
-        <td th:text="${workout.durationInMinutes}"></td>
-        <td th:text="${workout.workoutType.name}"></td>
-    </tr>
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="workout-table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Duration (min)</th>
+            <th>Workout Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="workout : ${user.workouts}">
+            <td th:text="${#temporals.format(workout.date, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${workout.durationInMinutes}"></td>
+            <td th:text="${workout.workoutType.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="summary" th:text="'Total workout time: ' + ${totalDuration} + ' minutes'"></p>
+    <p class="summary" th:text="'Number of sessions: ' + ${sessionCount}"></p>
+    <p class="summary" th:text="'Average duration: ' + ${averageDuration} + ' minutes'"></p>
+
+</div>
 
 <!--<a th:href="@{/users}">Back to user list</a>-->
 </body>

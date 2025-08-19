@@ -31,6 +31,17 @@ public class WorkoutController {
         List<Workout> workouts = workoutRepository.findWorkoutsWithTypeByUsername(username);
         model.addAttribute("user", user);
         model.addAttribute("workouts", workouts);
+
+        int totalDuration = user.getWorkouts().stream()
+                .mapToInt(Workout::getDurationInMinutes)
+                .sum();
+        int sessionCount = user.getWorkouts().size();
+        int averageDuration = sessionCount > 0 ? (int) totalDuration / sessionCount : 0;
+
+        model.addAttribute("totalDuration", totalDuration);
+        model.addAttribute("sessionCount", sessionCount);
+        model.addAttribute("averageDuration", averageDuration);
+
         return "user-workouts";
     }
 
