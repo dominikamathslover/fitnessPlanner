@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Workouts</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<h1 th:text="'Workouts for user: ' + ${user.username}"></h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Duration (min)</th>
+        <th>Workout Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="workout : ${user.workouts}">
+        <td th:text="${#temporals.format(workout.date, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${workout.durationInMinutes}"></td>
+        <td th:text="${workout.workoutType.name}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<!--<a th:href="@{/users}">Back to user list</a>-->
+</body>
+</html>
