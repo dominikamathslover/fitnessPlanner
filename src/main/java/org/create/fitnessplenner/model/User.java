@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Setter
 @Getter
@@ -49,10 +50,12 @@ public class User {
     private double height; // w cm
     private double weight; // w kg
 
-    private String fitnessGoal; // np. "Lose weight", "Build muscle", "Stay active"
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "fitness_goal_id", referencedColumnName = "id")
+    private FitnessGoal fitnessGoal;
 
-
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Workout> workouts;
 
 }
 

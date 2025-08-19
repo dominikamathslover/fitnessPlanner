@@ -2,7 +2,6 @@ package org.create.fitnessplenner.model;
 
 import jakarta.persistence.*;
         import jakarta.validation.constraints.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +18,10 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     @NotNull(message = "Duration is required")
     @Min(value = 1, message = "Duration must be at least 1 minute")
     private Integer durationInMinutes;
@@ -26,7 +29,8 @@ public class Workout {
     @NotNull(message = "Workout date is required")
     private LocalDateTime date;
 
-    @NotNull
-    private Integer workoutTypeId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "workout_type_id", referencedColumnName = "id")
+    private WorkoutType workoutType;
 
 }
