@@ -14,4 +14,5 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     @Query("SELECT w FROM Workout w JOIN FETCH w.workoutType WHERE w.user.username = :username")
     List<Workout> findWorkoutsWithTypeByUsername(@Param("username") String username);
 
+    List<Workout> findByUserUsernameOrderByDateDesc(String username);
 }
