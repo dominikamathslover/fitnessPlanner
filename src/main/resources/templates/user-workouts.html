@@ -26,10 +26,11 @@
         </tbody>
     </table>
 
-    <p class="summary" th:text="'Total workout time: ' + ${totalDuration} + ' minutes'"></p>
-    <p class="summary" th:text="'Number of sessions: ' + ${sessionCount}"></p>
-    <p class="summary" th:text="'Average duration: ' + ${averageDuration} + ' minutes'"></p>
-
+    <div class="summary-container">
+        <p class="summary" th:text="'Total workout time: ' + ${totalDuration} + ' minutes'"></p>
+        <p class="summary" th:text="'Number of sessions: ' + ${sessionCount}"></p>
+        <p class="summary" th:text="'Average duration: ' + ${averageDuration} + ' minutes'"></p>
+    </div>
 </div>
 
 <!--<a th:href="@{/users}">Back to user list</a>-->
