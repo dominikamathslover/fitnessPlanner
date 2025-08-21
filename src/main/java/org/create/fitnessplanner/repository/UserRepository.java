@@ -1,6 +1,6 @@
-package org.create.fitnessplenner.repository;
+package org.create.fitnessplanner.repository;
 
-import org.create.fitnessplenner.model.User;
+import org.create.fitnessplanner.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

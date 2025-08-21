@@ -1,6 +1,6 @@
-package org.create.fitnessplenner.repository;
+package org.create.fitnessplanner.repository;
 
-import org.create.fitnessplenner.model.Workout;
+import org.create.fitnessplanner.model.Workout;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

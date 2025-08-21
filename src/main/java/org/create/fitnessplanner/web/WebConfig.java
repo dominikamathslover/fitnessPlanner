@@ -1,4 +1,4 @@
-package org.create.fitnessplenner.web;
+package org.create.fitnessplanner.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

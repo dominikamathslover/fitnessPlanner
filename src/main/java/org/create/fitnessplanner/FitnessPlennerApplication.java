@@ -1,4 +1,4 @@
-package org.create.fitnessplenner;
+package org.create.fitnessplanner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package org.create.fitnessplenner.model;
+package org.create.fitnessplanner.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

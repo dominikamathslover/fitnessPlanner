@@ -1,12 +1,12 @@
-package org.create.fitnessplenner.service;
+package org.create.fitnessplanner.service;
 
-import org.create.fitnessplenner.dto.WorkoutDto;
-import org.create.fitnessplenner.model.User;
-import org.create.fitnessplenner.model.Workout;
-import org.create.fitnessplenner.model.WorkoutType;
-import org.create.fitnessplenner.repository.UserRepository;
-import org.create.fitnessplenner.repository.WorkoutRepository;
-import org.create.fitnessplenner.repository.WorkoutTypeRepository;
+import org.create.fitnessplanner.dto.WorkoutDto;
+import org.create.fitnessplanner.model.User;
+import org.create.fitnessplanner.model.Workout;
+import org.create.fitnessplanner.model.WorkoutType;
+import org.create.fitnessplanner.repository.UserRepository;
+import org.create.fitnessplanner.repository.WorkoutRepository;
+import org.create.fitnessplanner.repository.WorkoutTypeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

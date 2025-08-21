@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.create</groupId>
-    <artifactId>fitnessPlenner</artifactId>
+    <artifactId>fitnessPlanner</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>fitnessPlenner</name>
     <description>fitnessPlenner</description>
