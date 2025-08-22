@@ -18,8 +18,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="workout : ${user.workouts}">
-            <td th:text="${#temporals.format(workout.date, 'yyyy-MM-dd HH:mm')}"></td>
+        <tr th:each="workout : ${workouts}">
+        <td th:text="${#temporals.format(workout.date, 'yyyy-MM-dd HH:mm')}"></td>
             <td th:text="${workout.durationInMinutes}"></td>
             <td th:text="${workout.workoutType.name}"></td>
         </tr>
