@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add workout</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<h1>Add Workout</h1>
+<form th:action="@{/{username}/add-training(username=${username})}" method="post">
+    <div>
+        <label for="workoutType">Workout Type:</label>
+        <select id="workoutType" name="workoutTypeId" required>
+            <option value="" disabled selected>Select workout type</option>
+            <option th:each="type : ${workoutTypes}"
+                    th:value="${type.id}"
+                    th:text="${type.name}">
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <label for="date">Date and Time:</label>
+        <input type="datetime-local" id="date" name="date" required/>
+    </div>
+    <div>
+        <label for="durationInMinutes">Duration (minutes):</label>
+        <input type="number" id="durationInMinutes" name="durationInMinutes" min="1" required/>
+    </div>
+    <div>
+        <button type="submit">Add Workout</button>
+    </div>
+</form>
+</body>
+
+</html>

@@ -29,7 +29,7 @@ public class Workout {
     @NotNull(message = "Workout date is required")
     private LocalDateTime date;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "workout_type_id", referencedColumnName = "id")
     private WorkoutType workoutType;
 

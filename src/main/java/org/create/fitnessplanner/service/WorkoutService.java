@@ -56,7 +56,6 @@ public class WorkoutService {
         workoutRepository.save(plannedWorkout);
     }
 
-
     public List<Workout> getUserWorkouts(String username) {
         return workoutRepository.findByUserUsernameOrderByDateDesc(username);
     }
