@@ -14,24 +14,27 @@ http://localhost:8080/h2-console
 
 ## Features & Endpoints
 
-1. View user's training history and basic statistics GET http://localhost:8080/{username}/workouts
- ---------------
-    To do 
-2. Add workouts for a user 
-3. Add progress measurements - progress entity 
-(id, user_id, date, weight, bodyFat, ... )
-4. Registration and login
-5. Edit and delete trainings
-6. Profiles (dev, prod)
-7. Database (other than H2)
-8. Tests
-9. Training reminder - plan your future training, push notifications 
-10. List of planned training sessions 
-11. Save/view as a graphic calendar 
-12. Weekly/monthly statistics, charts
+1. View user's training history and basic statistics GET http://localhost:8080/{username}/workouts 
+2. Add workouts for a user  
+GET http://localhost:8080/{username}/add-training  
+POST http://localhost:8080/{username}/add-training  
+   x-www-form-urlencoded  
+   Key : workoutTypeId, date, durationInMinutes
 
----
+ ---------------
+    To do
+
+3. Weekly/monthly statistics, charts
+4. Training reminder - plan your future training, push notifications
+5. List of planned training sessions
+6. Save/view as a graphic calendar
+7. Add progress measurements - progress entity 
+(id, user_id, date, weight, bodyFat, ... )
+8. Edit and delete trainings
+9. Registration and login
+10. Profiles (dev, prod)
+11. Database (other than H2)
 
 ## Technologies Used 
-Java/ Spring Boot / Maven / H2 Database / 
+Java/ Spring Boot / Maven / H2 Database / Hibernate /
 Spring Data JPA / Thymeleaf / Flyway
