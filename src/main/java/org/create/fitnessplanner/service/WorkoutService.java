@@ -10,13 +10,10 @@ import org.create.fitnessplanner.repository.WorkoutTypeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -25,17 +22,19 @@ public class WorkoutService {
     private final WorkoutRepository workoutRepository;
     private final UserRepository userRepository;
     private final WorkoutTypeRepository workoutTypeRepository;
+    private final EntityResolverService entityResolverService;
 
-    public WorkoutService(WorkoutRepository workoutRepository, UserRepository userRepository, WorkoutTypeRepository workoutTypeRepository) {
+    public WorkoutService(WorkoutRepository workoutRepository, UserRepository userRepository, WorkoutTypeRepository workoutTypeRepository, EntityResolverService entityResolverService) {
         this.workoutRepository = workoutRepository;
         this.userRepository = userRepository;
         this.workoutTypeRepository = workoutTypeRepository;
+        this.entityResolverService = entityResolverService;
     }
 
     @Transactional
     public void addCompletedWorkout(String username, WorkoutDto workoutDto) {
-        User user = getUserOrThrow(username);
-        WorkoutType workoutType = getWorkoutTypeOrThrow(workoutDto.getWorkoutTypeId());
+        User user = entityResolverService.getUserOrThrow(username);
+        WorkoutType workoutType = entityResolverService.getWorkoutTypeOrThrow(workoutDto.getWorkoutTypeId());
 
         if (!workoutDto.getDate().isBefore(LocalDateTime.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Completed workout must be in the past");
@@ -47,8 +46,8 @@ public class WorkoutService {
 
     @Transactional
     public void scheduleWorkout(String username, WorkoutDto workoutDto) {
-        User user = getUserOrThrow(username);
-        WorkoutType workoutType = getWorkoutTypeOrThrow(workoutDto.getWorkoutTypeId());
+        User user = entityResolverService.getUserOrThrow(username);
+        WorkoutType workoutType = entityResolverService.getWorkoutTypeOrThrow(workoutDto.getWorkoutTypeId());
 
         if (workoutDto.getDate().isBefore(LocalDateTime.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "New workout must be in the future");
@@ -63,15 +62,6 @@ public class WorkoutService {
         return workoutRepository.findByUserUsernameOrderByDateDesc(username);
     }
 
-    public Map<String, Long> getWorkoutTypeStats(String username) {
-        List<Object[]> results = workoutRepository.countWorkoutTypesByUsername(username);
-        return results.stream()
-                .collect(Collectors.toMap(
-                        r -> (String) r[0], // wt.name
-                        r -> (Long) r[1]    // COUNT(w)
-                ));
-    }
-
 
     private Workout createWorkout(User user, WorkoutDto dto, WorkoutType type) {
         Workout workout = new Workout();
@@ -81,37 +71,6 @@ public class WorkoutService {
         workout.setWorkoutType(type);
         return workout;
     }
-
-    private User getUserOrThrow(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-    }
-
-    private WorkoutType getWorkoutTypeOrThrow(Integer id) {
-        return workoutTypeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Workout type not found"));
-    }
-
-    public List<Workout> getPastWorkouts(User user) {
-        LocalDateTime now = LocalDateTime.now();
-        List<Workout> workouts = workoutRepository.findPastWorkoutsWithType(user, now);
-        return workouts;
-    }
-
-    public void addWorkoutStatsToModel(Model model, User user, List<Workout> workouts) {
-        int totalDuration = workouts.stream()
-                .mapToInt(Workout::getDurationInMinutes)
-                .sum();
-        int sessionCount = workouts.size();
-        int averageDuration = sessionCount > 0 ? totalDuration / sessionCount : 0;
-
-        model.addAttribute("user", user);
-        model.addAttribute("workouts", workouts);
-        model.addAttribute("totalDuration", totalDuration);
-        model.addAttribute("sessionCount", sessionCount);
-        model.addAttribute("averageDuration", averageDuration);
-    }
-
 
 
 }
