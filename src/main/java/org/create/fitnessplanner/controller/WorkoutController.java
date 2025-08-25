@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class WorkoutController {
@@ -97,7 +98,34 @@ public class WorkoutController {
 
         workoutRepository.save(workout);
 
-        return ResponseEntity.ok("Training added successfully.");
+        String answer = getAnswerCompletedOrNew(workout);
+
+        return ResponseEntity.ok(answer);
+    }
+
+    @GetMapping("/{username}/workout-chart")
+    public String showWorkoutChart(@PathVariable String username, Model model) {
+        User user = getUserOrThrow(username);
+
+        Map<String, Long> stats = workoutService.getWorkoutTypeStats(username);
+        model.addAttribute("workoutStats", stats);
+        model.addAttribute("username", username);
+
+        return "workout-chart";
+    }
+
+
+    private static String getAnswerCompletedOrNew(Workout workout) {
+        LocalDateTime now = LocalDateTime.now();
+
+        String answer="";
+
+        if(now.isBefore(workout.getDate())) {
+            answer ="You have scheduled the future training.";
+        }else{
+            answer = "You have saved the completed training.";
+        }
+        return answer;
     }
 
     private User getUserOrThrow(String username) {
