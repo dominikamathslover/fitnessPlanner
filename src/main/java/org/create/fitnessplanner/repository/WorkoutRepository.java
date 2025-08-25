@@ -21,4 +21,5 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     @Query("SELECT wt.name, COUNT(w) FROM Workout w JOIN w.workoutType wt WHERE w.user.username = :username GROUP BY wt.name")
     List<Object[]> countWorkoutTypesByUsername(@Param("username") String username);
 
+    List<Workout> findByUserAndDateAfter(User user, LocalDateTime start);
 }
