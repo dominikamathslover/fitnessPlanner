@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Workout Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h2>Workout types for [[${username}]]</h2>
+<canvas id="workoutChart" width="400" height="400">
+    Workout Chart
+</canvas>
+
+<script th:inline="javascript">
+    let stats = [[${workoutStats}]];
+    let labels = Object.keys(stats);
+    let data = Object.values(stats);
+
+    new Chart(document.getElementById('workoutChart'), {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Workouts',
+                data: data,
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8BC34A']
+            }]
+        }
+    });
+</script>
+</body>
+</html>

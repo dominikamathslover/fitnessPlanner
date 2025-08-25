@@ -14,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -59,6 +61,16 @@ public class WorkoutService {
     public List<Workout> getUserWorkouts(String username) {
         return workoutRepository.findByUserUsernameOrderByDateDesc(username);
     }
+
+    public Map<String, Long> getWorkoutTypeStats(String username) {
+        List<Object[]> results = workoutRepository.countWorkoutTypesByUsername(username);
+        return results.stream()
+                .collect(Collectors.toMap(
+                        r -> (String) r[0], // wt.name
+                        r -> (Long) r[1]    // COUNT(w)
+                ));
+    }
+
 
     private Workout createWorkout(User user, WorkoutDto dto, WorkoutType type) {
         Workout workout = new Workout();
