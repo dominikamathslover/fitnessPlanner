@@ -10,6 +10,7 @@ import org.create.fitnessplanner.repository.WorkoutTypeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
@@ -89,6 +90,26 @@ public class WorkoutService {
     private WorkoutType getWorkoutTypeOrThrow(Integer id) {
         return workoutTypeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Workout type not found"));
+    }
+
+    public List<Workout> getPastWorkouts(User user) {
+        LocalDateTime now = LocalDateTime.now();
+        List<Workout> workouts = workoutRepository.findPastWorkoutsWithType(user, now);
+        return workouts;
+    }
+
+    public void addWorkoutStatsToModel(Model model, User user, List<Workout> workouts) {
+        int totalDuration = workouts.stream()
+                .mapToInt(Workout::getDurationInMinutes)
+                .sum();
+        int sessionCount = workouts.size();
+        int averageDuration = sessionCount > 0 ? totalDuration / sessionCount : 0;
+
+        model.addAttribute("user", user);
+        model.addAttribute("workouts", workouts);
+        model.addAttribute("totalDuration", totalDuration);
+        model.addAttribute("sessionCount", sessionCount);
+        model.addAttribute("averageDuration", averageDuration);
     }
 
 
