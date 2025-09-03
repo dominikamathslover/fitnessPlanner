@@ -29,4 +29,6 @@ Purpose: Visualizing the proportion between activity types for a user
    
 ## Technologies Used 
 Java/ Spring Boot / Maven / JavaScript / H2 Database / Hibernate /
-Spring Data JPA / Thymeleaf / Flyway 
+Spring Data JPA / Thymeleaf / Flyway / Bootstrap 5 
+
+
