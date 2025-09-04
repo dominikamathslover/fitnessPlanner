@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/{username}/workouts")
-public class WorkoutViewController {
+@RequestMapping("/{username}/workouts/completed/")
+public class WorkoutCompletedViewController {
 
     private final WorkoutStatsService workoutStatsService;
     private final WorkoutViewService workoutViewService;
     private final EntityResolverService entityResolverService;
 
-    public WorkoutViewController(
+    public WorkoutCompletedViewController(
             WorkoutStatsService workoutStatsService,
             WorkoutViewService workoutViewService,
             EntityResolverService entityResolverService
@@ -32,10 +32,19 @@ public class WorkoutViewController {
         this.entityResolverService = entityResolverService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public String showUserCompletedWorkouts(@PathVariable String username, Model model) {
         User user = entityResolverService.getUserOrThrow(username);
         List<Workout> pastWorkouts = workoutStatsService.getPastWorkouts(user);
+
+        workoutViewService.addWorkoutStatsToModel(model, user, pastWorkouts);
+        return "user-workouts";
+    }
+
+    @GetMapping("/month")
+    public String showUserCompletedWorkoutsThisMonth(@PathVariable String username, Model model) {
+        User user = entityResolverService.getUserOrThrow(username);
+        List<Workout> pastWorkouts = workoutStatsService.getPastWorkoutsThisMonth(user);
 
         workoutViewService.addWorkoutStatsToModel(model, user, pastWorkouts);
         return "user-workouts";

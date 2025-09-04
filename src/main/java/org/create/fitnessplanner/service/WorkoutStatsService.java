@@ -5,7 +5,10 @@ import org.create.fitnessplanner.model.Workout;
 import org.create.fitnessplanner.repository.WorkoutRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +23,6 @@ public class WorkoutStatsService {
         this.workoutRepository = workoutRepository;
     }
 
-    // Returns a map of workout type names and their count for a given user
     public Map<String, Long> getWorkoutTypeStats(String username) {
         List<Object[]> results = workoutRepository.countWorkoutTypesByUsername(username);
         return results.stream()
@@ -30,10 +32,28 @@ public class WorkoutStatsService {
                 ));
     }
 
-    // Returns a list of past workouts (before now) for a given user
+
     public List<Workout> getPastWorkouts(User user) {
         LocalDateTime now = LocalDateTime.now();
         return workoutRepository.findPastWorkoutsWithType(user, now);
+    }
+
+    public List<Workout> getPastWorkoutsThisMonth(User user) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime startOfMonth = now.toLocalDate().withDayOfMonth(1).atStartOfDay();
+        return workoutRepository.findWorkoutsByUserAndDateBetween(user, startOfMonth, now);
+    }
+
+    public List<Workout> getFutureWorkouts(User user) {
+        LocalDateTime now = LocalDateTime.now();
+        return workoutRepository.findFutureWorkoutsWithType(user, now);
+    }
+
+    public List<Workout> getFutureWorkoutsThisMonth(User user) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endOfMonth = now.with(TemporalAdjusters.lastDayOfMonth())
+                .with(LocalTime.MAX);
+        return workoutRepository.findWorkoutsByUserAndDateBetween(user, now, endOfMonth);
     }
 
     // Returns a map of total workout duration per weekday over the last 30 days
@@ -60,4 +80,6 @@ public class WorkoutStatsService {
 
         return result;
     }
+
+
 }

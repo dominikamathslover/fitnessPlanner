@@ -22,4 +22,11 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     List<Object[]> countWorkoutTypesByUsername(@Param("username") String username);
 
     List<Workout> findByUserAndDateAfter(User user, LocalDateTime start);
+
+
+    List<Workout> findWorkoutsByUserAndDateBetween(User user, LocalDateTime startDate, LocalDateTime now);
+
+    @Query("SELECT w FROM Workout w JOIN FETCH w.workoutType WHERE w.user = :user AND w.date > :date ORDER BY w.date")
+    List<Workout> findFutureWorkoutsWithType(@Param("user") User user, @Param("date") LocalDateTime date);
+
 }
