@@ -41,7 +41,7 @@ public class WorkoutStatsService {
     public List<Workout> getPastWorkoutsThisMonth(User user) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startOfMonth = now.toLocalDate().withDayOfMonth(1).atStartOfDay();
-        return workoutRepository.findWorkoutsByUserAndDateBetween(user, startOfMonth, now);
+        return workoutRepository.findWorkoutsWithTypeBetweenDates(user.getUsername(), startOfMonth, now);
     }
 
     public List<Workout> getFutureWorkouts(User user) {
@@ -53,7 +53,7 @@ public class WorkoutStatsService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfMonth = now.with(TemporalAdjusters.lastDayOfMonth())
                 .with(LocalTime.MAX);
-        return workoutRepository.findWorkoutsByUserAndDateBetween(user, now, endOfMonth);
+        return workoutRepository.findWorkoutsWithTypeBetweenDates(user.getUsername(), now, endOfMonth);
     }
 
     // Returns a map of total workout duration per weekday over the last 30 days
