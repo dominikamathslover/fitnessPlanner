@@ -17,16 +17,6 @@ nav{
     border-radius: 6px;
 }
 
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-nav li {
-    float: left;
-}
 
 nav li a {
     display: block;
