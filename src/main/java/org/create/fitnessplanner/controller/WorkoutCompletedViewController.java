@@ -38,7 +38,7 @@ public class WorkoutCompletedViewController {
         List<Workout> pastWorkouts = workoutStatsService.getPastWorkouts(user);
 
         workoutViewService.addWorkoutStatsToModel(model, user, pastWorkouts);
-        return "user-workouts";
+        return "user/user-workouts";
     }
 
     @GetMapping("/month")
@@ -47,7 +47,7 @@ public class WorkoutCompletedViewController {
         List<Workout> pastWorkouts = workoutStatsService.getPastWorkoutsThisMonth(user);
 
         workoutViewService.addWorkoutStatsToModel(model, user, pastWorkouts);
-        return "user-workouts";
+        return "user/user-workouts";
     }
 
     @GetMapping("/chart")
@@ -58,6 +58,6 @@ public class WorkoutCompletedViewController {
         model.addAttribute("workoutStats", stats);
         model.addAttribute("username", username);
 
-        return "workout-chart";
+        return "user/workout-chart";
     }
 }

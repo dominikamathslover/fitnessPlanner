@@ -34,7 +34,7 @@ public class WorkoutFormController {
         model.addAttribute("workoutDto", new WorkoutDto());
         model.addAttribute("workoutTypes", workoutTypes);
 
-        return "add-training";
+        return "user/add-training";
     }
 
     @PostMapping

@@ -38,7 +38,7 @@ public class WorkoutPlannedViewController {
         List<Workout> futureWorkouts = workoutStatsService.getFutureWorkouts(user);
 
         workoutViewService.addWorkoutStatsToModel(model, user, futureWorkouts);
-        return "user-workouts";
+        return "user/user-workouts";
     }
 
     @GetMapping("/month")
@@ -47,7 +47,7 @@ public class WorkoutPlannedViewController {
         List<Workout> futureWorkouts = workoutStatsService.getFutureWorkoutsThisMonth(user);
 
         workoutViewService.addWorkoutStatsToModel(model, user, futureWorkouts);
-        return "user-workouts";
+        return "user/user-workouts";
     }
 
     @GetMapping("/chart")
@@ -58,7 +58,7 @@ public class WorkoutPlannedViewController {
         model.addAttribute("workoutStats", stats);
         model.addAttribute("username", username);
 
-        return "workout-chart";
+        return "user/workout-chart";
     }
 }
 
