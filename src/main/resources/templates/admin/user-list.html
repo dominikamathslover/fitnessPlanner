@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/common.css">
+    <div th:replace="~{fragments/head-links :: head-link}"></div>
+
+</head>
+<body>
+<!--<div th:replace="~{fragments/navbar :: navbar}"></div>-->
+
+<h2>Select a user</h2>
+
+<select id="userSelect">
+    <option value="" disabled selected>Select a user</option>
+    <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"></option>
+</select>
+
+<button type="button" onclick="goToCompletedWorkouts()">View completed workouts</button>
+
+<script>
+    function goToCompletedWorkouts() {
+        const username = document.getElementById("userSelect").value;
+        if (username) {
+            window.location.href = `/${username}/workouts/completed/all`;
+        } else {
+            alert("Please select a user first.");
+        }
+    }
+</script>
+
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>
