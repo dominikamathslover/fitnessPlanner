@@ -3,11 +3,12 @@
 <head>
     <title>Workout Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <div th:replace="fragments/head-links :: head-link"></div>
+    <div th:replace="~{fragments/head-links :: head-link}"></div>
 </head>
 <body>
 <h2>Workout types for [[${username}]]</h2>
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
 <canvas id="workoutChart" width="400" height="400">
     Workout Chart
 </canvas>
@@ -30,6 +31,6 @@
     });
 </script>
 
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>

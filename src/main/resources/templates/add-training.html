@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>Add workout</title>
     <link rel="stylesheet" href="/css/styles.css"/>
-    <div th:replace="fragments/head-links :: head-link"></div>
+    <div th:replace="~{fragments/head-links :: head-link}"></div>
 </head>
 <body>
 <h1>Add Workout</h1>
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <form th:action="@{/{username}/add-training(username=${username})}" method="post">
     <div>
         <label for="workoutType">Workout Type:</label>
@@ -35,7 +35,7 @@
 </form>
 
 
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 
 </html>

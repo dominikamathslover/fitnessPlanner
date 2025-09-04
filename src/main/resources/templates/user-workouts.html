@@ -5,13 +5,15 @@
     <title>User Workouts</title>
     <link rel="stylesheet" href="/css/styles.css"/>
     <link rel="stylesheet" href="/css/common.css">
-    <div th:replace="fragments/head-links :: head-link"></div>
+    <div th:replace="~{fragments/head-links :: head-link}"></div>
+
+
 </head>
 <body>
 
 <h1 th:class="workout-header" th:text="'Workouts for ' + ${user.username}"></h1>
 
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 
 <div class="table-container">
@@ -40,7 +42,7 @@
 </div>
 
 <!--<a th:href="@{/users}">Back to user list</a>-->
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
 
 </body>
 </html>
