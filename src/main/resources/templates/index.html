@@ -6,13 +6,20 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <div th:replace="~{fragments/head-links :: head-link}"></div>
-    <title>Home page</title>
+    <link rel="stylesheet" th:href="@{/css/home_page.css}">
+    <title>Fitness Planner</title>
 </head>
 <body>
-<h1>Home page</h1>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="video-background">
+    <video autoplay muted loop playsinline>
+        <source src="../videos/streching.mp4" type="video/mp4">
+    </video>
+</div>
+<div class="content">
 
+</div>
+    <div th:replace="~{fragments/footer :: footer }"></div>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
 
-<div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 </html>
