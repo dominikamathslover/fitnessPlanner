@@ -7,34 +7,37 @@
     <div th:replace="~{fragments/head-links :: head-link}"></div>
 </head>
 <body>
-<h1>Add Workout</h1>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
-<form th:action="@{/{username}/add-training(username=${username})}" method="post">
-    <div>
-        <label for="workoutType">Workout Type:</label>
-        <select id="workoutType" name="workoutTypeId" required>
-            <option value="" disabled selected>Select workout type</option>
-            <option th:each="type : ${workoutTypes}"
-                    th:value="${type.id}"
-                    th:text="${type.name}">
-            </option>
-        </select>
-    </div>
+<div class="content">
+    <h1>Add Workout</h1>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <form th:action="@{/{username}/add-training(username=${username})}" method="post">
+        <div>
+            <label for="workoutType">Workout Type:</label>
+            <select id="workoutType" name="workoutTypeId" required>
+                <option value="" disabled selected>Select workout type</option>
+                <option th:each="type : ${workoutTypes}"
+                        th:value="${type.id}"
+                        th:text="${type.name}">
+                </option>
+            </select>
+        </div>
 
-    <div>
-        <label for="date">Date and Time:</label>
-        <input type="datetime-local" id="date" name="date" required/>
-    </div>
-    <div>
-        <label for="durationInMinutes">Duration (minutes):</label>
-        <input type="number" id="durationInMinutes" name="durationInMinutes" min="1" required/>
-    </div>
-    <div>
-        <button type="submit">Add Workout</button>
-    </div>
-</form>
+        <div>
+            <label for="date">Date and Time:</label>
+            <input type="datetime-local" id="date" name="date" required/>
+        </div>
+        <div>
+            <label for="durationInMinutes">Duration (minutes):</label>
+            <input type="number" id="durationInMinutes" name="durationInMinutes" min="1" required/>
+        </div>
+        <div>
+            <button type="submit">Add Workout</button>
+        </div>
+    </form>
+    div
 
-
+</div>
+<div th:replace="~{fragments/footer :: footer }"></div>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 
