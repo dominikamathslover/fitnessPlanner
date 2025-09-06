@@ -92,7 +92,7 @@
 }
 
 
-@media (min-width: 600px) {
+@media (min-width: 900px) {
     .footer-columns {
         flex-direction: row;
         justify-content: space-between;
