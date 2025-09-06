@@ -5,6 +5,7 @@
     <title>Add workout</title>
     <link rel="stylesheet" href="/css/styles.css"/>
     <div th:replace="~{fragments/head-links :: head-link}"></div>
+    <link rel="stylesheet" href="/css/add-training.css"/>
 </head>
 <body>
 <div class="content">
@@ -13,8 +14,9 @@
 
     <div class="box">
         <form th:action="@{/{username}/add-training(username=${username})}" method="post">
-            <div>
-                <label for="workoutType">Workout Type:</label>
+            <div class="add-workout">
+                <label for="workoutType"><h4> Workout Type: </h4></label>
+                <br>
                 <select id="workoutType" name="workoutTypeId" required>
                     <option value="" disabled selected>Select workout type</option>
                     <option th:each="type : ${workoutTypes}"
@@ -24,12 +26,14 @@
                 </select>
             </div>
 
-            <div>
-                <label for="date">Date and Time:</label>
+            <div class="add-workout">
+                <label for="date"><h4> Date and Time: </h4></label>
+                <br>
                 <input type="datetime-local" id="date" name="date" required/>
             </div>
-            <div>
-                <label for="durationInMinutes">Duration (minutes):</label>
+            <div class="add-workout">
+                <label for="durationInMinutes"><h4> Duration (min): </h4></label>
+                <br>
                 <input type="number" id="durationInMinutes" name="durationInMinutes" min="1" required/>
             </div>
             <div>
@@ -39,7 +43,9 @@
     </div>
 
 </div>
-<div th:replace="~{fragments/footer :: footer-more-details }"></div>
+<div class="footer-large" th:replace="~{fragments/footer :: footer-more-details}"></div>
+<div class="footer-small" th:replace="~{fragments/footer :: footer-basic}"></div>
+
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 

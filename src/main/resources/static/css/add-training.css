@@ -1,0 +1,35 @@
+.box{
+    margin: 1rem 1rem 4rem 1rem;
+    padding: 0.5rem 1rem;
+    height: fit-content;
+    width: fit-content;
+    background: #0077cc;
+    border: 3px solid black;
+    box-shadow: 3px 3px 0px black;
+
+
+}
+
+.add-workout{
+    margin-bottom: 0px;
+}
+
+.add-workout h4 {
+    font-size: 1rem;
+    text-shadow: 1px 0px #0022cc;
+    margin-top: 1.3rem;
+}
+
+button{
+    margin: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 0px black;
+    padding: 0.5rem;
+}
+
+select, input{
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
