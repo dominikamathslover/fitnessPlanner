@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User Workouts</title>
+    <title>My Workouts</title>
     <link rel="stylesheet" href="/css/styles.css"/>
     <link rel="stylesheet" href="/css/common.css">
     <div th:replace="~{fragments/head-links :: head-link}"></div>
@@ -11,39 +11,53 @@
 </head>
 <body>
 
-<h1 th:class="workout-header" th:text="'Workouts for ' + ${user.username}"></h1>
+<h1 th:class="workout-header" th:text="${user.username}"></h1>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 
 <div class="table-container">
-    <table class="workout-table">
-        <thead>
-        <tr>
-            <th>Date</th>
-            <th>Duration (min)</th>
-            <th>Workout Type</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="workout : ${workouts}">
-            <td th:text="${#temporals.format(workout.date, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${workout.durationInMinutes}"></td>
-            <td th:text="${workout.workoutType.name}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="workout-container">
+        <table class="workout-table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Duration (min)</th>
+                <th>Workout Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="workout : ${workouts}">
+                <td th:text="${#temporals.format(workout.date, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${workout.durationInMinutes}"></td>
+                <td th:text="${workout.workoutType.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="summary-container">
-        <p class="summary" th:text="'Total workout time: ' + ${totalDuration} + ' minutes'"></p>
-        <p class="summary" th:text="'Number of sessions: ' + ${sessionCount}"></p>
-        <p class="summary" th:text="'Average duration: ' + ${averageDuration} + ' minutes'"></p>
+        <div class="summary">
+            <h4>Total workout time:</h4>
+            <p th:text="${totalDuration} + ' minutes'"></p>
+        </div>
+        <div class="summary">
+            <h4>Number of sessions:</h4>
+            <p th:text="${sessionCount}"></p>
+        </div>
+
+        <div class="summary">
+            <h4>Average duration:</h4>
+            <p th:text="${averageDuration} + ' minutes'"></p>
+        </div>
+
+
     </div>
 
     <div th:replace="~{fragments/footer :: beforefooter}"></div>
 </div>
 
-<div th:replace="~{fragments/footer :: footer }"></div>
+<div th:replace="~{fragments/footer :: footer-basic }"></div>
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 
 </body>

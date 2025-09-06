@@ -1,5 +1,5 @@
 <div th:fragment="navbar">
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg bg-black navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">🏠 Home</a>
 
@@ -20,9 +20,9 @@
                                 Completed Workouts – This Month</a></li>
                             <li><a class="dropdown-item" th:href="@{'/' + ${username} + '/workouts/completed/all'}">✅
                                 Completed Workouts – All</a></li>
-                            <li><a class="dropdown-item" th:href="@{'/' + ${username} + '/workouts/planned/month'}">🕒
+                            <li><a class="dropdown-item" th:href="@{'/' + ${username} + '/workouts/planned/month'}">⏱
                                 Planned Workouts – This Month</a></li>
-                            <li><a class="dropdown-item" th:href="@{'/' + ${username} + '/workouts/planned/all'}">🕒
+                            <li><a class="dropdown-item" th:href="@{'/' + ${username} + '/workouts/planned/all'}">⏱
                                 Planned Workouts – All</a></li>
                         </ul>
                     </li>

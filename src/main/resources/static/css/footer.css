@@ -91,5 +91,11 @@
 }
 
 .emptybox{
-    height: 8rem;
+    height: 2rem;
+}
+
+.footer-basic {
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
 }
