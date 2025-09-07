@@ -7,6 +7,8 @@ import org.create.fitnessplanner.model.WorkoutType;
 import org.create.fitnessplanner.repository.UserRepository;
 import org.create.fitnessplanner.repository.WorkoutRepository;
 import org.create.fitnessplanner.repository.WorkoutTypeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,10 +60,9 @@ public class WorkoutService {
         workoutRepository.save(plannedWorkout);
     }
 
-    public List<Workout> getUserWorkouts(String username) {
-        return workoutRepository.findByUserUsernameOrderByDateDesc(username);
+    public Page<Workout> getUserWorkouts(String username, Pageable pageable) {
+        return workoutRepository.findByUserUsernameOrderByDateDesc(username, pageable);
     }
-
 
     private Workout createWorkout(User user, WorkoutDto dto, WorkoutType type) {
         Workout workout = new Workout();

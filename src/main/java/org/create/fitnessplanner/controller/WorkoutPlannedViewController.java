@@ -36,8 +36,9 @@ public class WorkoutPlannedViewController {
     public String showUserCompletedWorkouts(@PathVariable String username, Model model) {
         User user = entityResolverService.getUserOrThrow(username);
         List<Workout> futureWorkouts = workoutStatsService.getFutureWorkouts(user);
+        Map<String, Long> stats = workoutStatsService.getFutureWorkoutTypeStats(user);
 
-        workoutViewService.addWorkoutStatsToModel(model, user, futureWorkouts);
+        workoutViewService.addWorkoutStatsToModel(model, user, futureWorkouts,stats);
         return "user/user-workouts";
     }
 
@@ -45,20 +46,11 @@ public class WorkoutPlannedViewController {
     public String showUserCompletedWorkoutsThisMonth(@PathVariable String username, Model model) {
         User user = entityResolverService.getUserOrThrow(username);
         List<Workout> futureWorkouts = workoutStatsService.getFutureWorkoutsThisMonth(user);
+        Map<String, Long> stats = workoutStatsService.getFutureWorkoutTypeStatsThisMonth(user);
 
-        workoutViewService.addWorkoutStatsToModel(model, user, futureWorkouts);
+        workoutViewService.addWorkoutStatsToModel(model, user, futureWorkouts,stats);
         return "user/user-workouts";
     }
 
-    @GetMapping("/chart")
-    public String showWorkoutChart(@PathVariable String username, Model model) {
-        User user = entityResolverService.getUserOrThrow(username);
-
-        Map<String, Long> stats = workoutStatsService.getWorkoutTypeStats(username);
-        model.addAttribute("workoutStats", stats);
-        model.addAttribute("username", username);
-
-        return "user/workout-chart";
-    }
 }
 
