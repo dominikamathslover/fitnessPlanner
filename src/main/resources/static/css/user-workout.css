@@ -1,4 +1,14 @@
 .workout-chart{
+    margin-left: 5rem;
     display: none;
+
+}
+
+button {
+    margin: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2px 2px 0px black;
+    padding: 1rem;
 }
 

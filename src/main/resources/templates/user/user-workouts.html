@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/styles.css"/>
     <link rel="stylesheet" href="/css/common.css">
     <div th:replace="~{fragments/head-links :: head-link}"></div>
-
+    <div th:replace="~{fragments/head-links :: head-link-user-workout}"></div>
 
 </head>
 <body>
@@ -15,7 +15,6 @@
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<buttton id="chartButton"> Charts </buttton>
 <div id="charts" th:replace="~{fragments/workout-chart :: charts}"></div>
 
 <div class="table-container">
@@ -52,6 +51,8 @@
             <h4>Average duration:</h4>
             <p th:text="${averageDuration} + ' minutes'"></p>
         </div>
+        <button id="chartButton" onclick="toggleVisibility()"> Charts </button>
+
 
 
     </div>

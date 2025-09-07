@@ -1,32 +1,56 @@
-<div th:fragment="charts" style="width: 1000px; height: 200px">
-     <canvas id="workoutChart" style="display: none;">
-        Workout Chart
-    </canvas>
+<div class="workout-chart" th:fragment="charts" style="width: 400px; height: 380px; display: none;">
+    <canvas id="workoutChart">Workout Chart</canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
     <script th:inline="javascript">
-        document.getElementById("chartButton")
-            .addEventListener(
-                "click",
-                function (){
-                    document.getElementById("workoutChart").style.display="block";
-                }
-            )
+        function toggleVisibility() {
+            const container = document.getElementsByClassName("workout-chart")[0];
+            const canvas = document.getElementById("workoutChart");
+            const isHidden = container.style.display === "none";
 
-        let stats = [[${workoutStats}]];
-        let labels = Object.keys(stats);
-        let data = Object.values(stats);
+            container.style.display = isHidden ? "block" : "none";
 
-        new Chart(document.getElementById('workoutChart'), {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Workouts',
-                    data: data,
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8BC34A']
-                }]
+            if (isHidden && !canvas.chartInstance) {
+                let stats = /*[[${workoutStats}]]*/ {};
+                let labels = Object.keys(stats);
+                let data = Object.values(stats);
+
+                const chart = new Chart(canvas, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Workouts',
+                            data: data
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            },
+                            datalabels: {
+                                formatter: (value, context) => {
+                                    const data = context.chart.data.datasets[0].data;
+                                    const total = data.reduce((acc, val) => acc + val, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return percentage + '%';
+                                },
+                                color: '#fff',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: [ChartDataLabels]
+                });
+
+                canvas.chartInstance = chart;
             }
-        });
+        }
     </script>
 </div>
