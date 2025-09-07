@@ -23,7 +23,7 @@ public class WorkoutStatsService {
 
 
     public Map<String, Long> getWorkoutTypeStats(User user) {
-        List<Object[]> results = workoutRepository.countWorkoutTypesByUserId(user.getId());
+        List<Object[]> results = workoutRepository.sumWorkoutDurationByUserId(user.getId());
         return results.stream()
                 .collect(Collectors.toMap(
                         r -> (String) r[0],
@@ -32,7 +32,7 @@ public class WorkoutStatsService {
     }
 
     public Map<String, Long> getPastWorkoutTypeStats(User user) {
-        List<Object[]> results = workoutRepository.countPastWorkoutTypesByUserId(user.getId());
+        List<Object[]> results = workoutRepository.sumPastWorkoutDurationByUserId(user.getId());
         return results.stream()
                 .collect(Collectors.toMap(
                         r -> (String) r[0],
@@ -43,7 +43,7 @@ public class WorkoutStatsService {
     public Map<String, Long> getPastWorkoutTypeStatsThisMonth(User user) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startOfMonth = now.toLocalDate().withDayOfMonth(1).atStartOfDay();
-        List<Object[]> results = workoutRepository.countPastWorkoutThisMonth(user.getId(),startOfMonth,now);
+        List<Object[]> results = workoutRepository.sumPastWorkoutDurationThisMonth(user.getId(),startOfMonth,now);
         return results.stream()
                 .collect(Collectors.toMap(
                         r -> (String) r[0],
@@ -53,7 +53,7 @@ public class WorkoutStatsService {
 
 
     public Map<String, Long> getFutureWorkoutTypeStats(User user) {
-        List<Object[]> results = workoutRepository.countFutureWorkoutTypesByUserId(user.getId());
+        List<Object[]> results = workoutRepository.sumFutureWorkoutDurationByUserId(user.getId());
         return results.stream()
                 .collect(Collectors.toMap(
                         r -> (String) r[0],
@@ -65,7 +65,7 @@ public class WorkoutStatsService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfMonth = now.with(TemporalAdjusters.lastDayOfMonth())
                 .with(LocalTime.MAX);
-        List<Object[]> results = workoutRepository.countFutureWorkoutThisMonth(user.getId(),now,endOfMonth);
+        List<Object[]> results = workoutRepository.sumFutureWorkoutDurationThisMonth(user.getId(),now,endOfMonth);
         return results.stream()
                 .collect(Collectors.toMap(
                         r -> (String) r[0],

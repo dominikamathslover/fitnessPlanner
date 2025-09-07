@@ -21,14 +21,15 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     @Query("SELECT w FROM Workout w JOIN FETCH w.workoutType WHERE w.user = :user AND w.date < CURRENT_TIMESTAMP ORDER BY w.date")
     List<Workout> findPastWorkoutsWithType(@Param("user") User user);
 
-    @Query("SELECT wt.name, COUNT(w) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId GROUP BY wt.name")
-    List<Object[]> countWorkoutTypesByUserId(@Param("userId") Long userId);
+    @Query("SELECT wt.name, SUM(w.durationInMinutes) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId GROUP BY wt.name")
+    List<Object[]> sumWorkoutDurationByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT wt.name, COUNT(w) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId AND w.date < CURRENT_TIMESTAMP GROUP BY wt.name")
-    List<Object[]> countPastWorkoutTypesByUserId(@Param("userId") Long userId);
+    @Query("SELECT wt.name, SUM(w.durationInMinutes) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId AND w.date < CURRENT_TIMESTAMP GROUP BY wt.name")
+    List<Object[]> sumPastWorkoutDurationByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT wt.name, COUNT(w) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId AND w.date > CURRENT_TIMESTAMP GROUP BY wt.name")
-    List<Object[]> countFutureWorkoutTypesByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT wt.name, SUM(w.durationInMinutes) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId AND w.date > CURRENT_TIMESTAMP GROUP BY wt.name")
+    List<Object[]> sumFutureWorkoutDurationByUserId(@Param("userId") Long userId);
 
     List<Workout> findByUserAndDateAfter(User user, LocalDateTime start);
 
@@ -41,19 +42,18 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end);
 
-    @Query("SELECT wt.name, COUNT(w) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId " +
+    @Query("SELECT wt.name, SUM(w.durationInMinutes) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId " +
             "AND w.date BETWEEN :startOfMonth AND :now GROUP BY wt.name")
-    List<Object[]> countPastWorkoutThisMonth(
+    List<Object[]> sumPastWorkoutDurationThisMonth(
             @Param("userId") Long userId,
             @Param("startOfMonth") LocalDateTime startOfMonth,
             @Param("now") LocalDateTime now);
 
-    @Query("SELECT wt.name, COUNT(w) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId " +
+    @Query("SELECT wt.name, SUM(w.durationInMinutes) FROM Workout w JOIN w.workoutType wt WHERE w.user.id = :userId " +
             "AND w.date BETWEEN :now AND :endOfMonth GROUP BY wt.name")
-    List<Object[]> countFutureWorkoutThisMonth(
+    List<Object[]> sumFutureWorkoutDurationThisMonth(
             @Param("userId") Long userId,
             @Param("now") LocalDateTime now,
             @Param("endOfMonth") LocalDateTime endOfMonth);
-
-
 }
+
