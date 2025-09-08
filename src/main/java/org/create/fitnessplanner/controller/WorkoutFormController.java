@@ -6,6 +6,7 @@ import org.create.fitnessplanner.model.User;
 import org.create.fitnessplanner.model.WorkoutType;
 import org.create.fitnessplanner.service.EntityResolverService;
 import org.create.fitnessplanner.service.WorkoutService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,10 +43,10 @@ public class WorkoutFormController {
                                               @ModelAttribute @Valid WorkoutDto workoutDto) {
         if (workoutDto.getDate().isBefore(java.time.LocalDateTime.now())) {
             workoutService.addCompletedWorkout(username, workoutDto);
-            return ResponseEntity.ok("You have saved the completed training.");
+            return ResponseEntity.status(HttpStatus.CREATED) .body("You have saved the completed training.");
         } else {
             workoutService.scheduleWorkout(username, workoutDto);
-            return ResponseEntity.ok("You have scheduled the future training.");
+            return ResponseEntity.status(HttpStatus.CREATED) .body("You have scheduled the future training.");
         }
     }
 }
