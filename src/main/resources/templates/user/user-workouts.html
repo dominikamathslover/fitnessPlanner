@@ -51,8 +51,8 @@
             <h4>Average duration:</h4>
             <p th:text="${averageDuration} + ' minutes'"></p>
         </div>
-        <button id="chartButton" onclick="toggleVisibility()"> Charts </button>
-
+        <button class="no-print" id="chartButton" onclick="toggleVisibility()"> Charts </button>
+        <button class="no-print" onclick="window.print()">Print this page</button>
 
 
     </div>
