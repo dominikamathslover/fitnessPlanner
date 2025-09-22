@@ -64,6 +64,10 @@ public class WorkoutService {
         return workoutRepository.findByUserUsernameOrderByDateDesc(username, pageable);
     }
 
+    public List<Workout> getUserWorkoutsBetween(User user, LocalDateTime from, LocalDateTime to) {
+        return workoutRepository.findByUserIdAndDateBetweenOrderByDateDesc(user.getId(), from, to);
+    }
+
     private Workout createWorkout(User user, WorkoutDto dto, WorkoutType type) {
         Workout workout = new Workout();
         workout.setUser(user);

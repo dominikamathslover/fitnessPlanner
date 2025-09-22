@@ -15,4 +15,9 @@ public class WorkoutType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
