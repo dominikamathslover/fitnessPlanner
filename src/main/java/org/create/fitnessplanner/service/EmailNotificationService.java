@@ -44,8 +44,10 @@ public class EmailNotificationService implements NotificationService {
         for (Workout workout : workouts) {
             String formattedDate = workout.getDate().format(formatter);
             String workoutName = workout.getWorkoutType().getName();
+            String workoutDuration = workout.getDurationInMinutes() + " min";
             sb.append("- ").append(formattedDate)
                     .append(" • ").append(workoutName)
+                    .append(" • ").append(workoutDuration)
                     .append("\n");
         }
 

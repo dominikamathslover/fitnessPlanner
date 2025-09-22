@@ -34,6 +34,12 @@ Segments: Different types of training (e.g. cardio, running)
 Purpose: Visualizing the proportion between activity types for a user
 4. View all users (admin)  
 GET http://localhost:8080/admin/users
+5. Automated email notifications about upcoming workouts 
+* Once a week, the system sends personalized emails to users 
+with a summary of their planned workouts for the upcoming week 
+* Emails are sent via SMTP using Brevo 
+* Cron-based scheduling integrated with Spring Boot 
+* Email content includes workout types, dates, and durations
 
 
 ## Technologies Used
@@ -41,4 +47,4 @@ GET http://localhost:8080/admin/users
 ***Backend:*** Java, Spring Boot, Spring Data JPA, Hibernate  
 ***Frontend:*** Thymeleaf, JavaScript, Bootstrap 5  
 ***Database:*** H2  
-***Other Tools:*** Maven, Flyway
+***Other Tools:*** Maven, Flyway, Brevo SMTP, Spring Scheduler
